@@ -7,7 +7,6 @@ export default function AddTaskForm({ onAddTask }){
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Buy Alert');
 
-  // Your handleSubmit logic here
   function handleSubmit(e){
     e.preventDefault();
 

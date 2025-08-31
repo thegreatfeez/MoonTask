@@ -1,12 +1,22 @@
 import { useState } from 'react'
 import AddTaskForm from './AddTaskForm'
+import TaskList from './TaskList'
 
 function App() {
-    const [task, setTask] = useState([])
+    const [tasks, setTasks] = useState([])
 
     const handleAddTasks = (newTask) =>{
-        setTask([...task,newTask])
+        setTasks([...tasks,newTask])
     }
+    const handleToggleComplete = (taskId) => {
+      setTasks(tasks.map(task => 
+        task.id === taskId ? {...task, completed: !task.completed} : task
+      ))
+    }
+    const handleDeleteTask = (taskId) => {
+      setTasks(tasks.filter(task => task.id !== taskId))
+    }
+
      return (
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-2xl mx-auto px-4">
@@ -16,11 +26,13 @@ function App() {
         
         <AddTaskForm onAddTask={handleAddTasks} />
         
-        {/* You'll add TaskList component here later */}
-        
-        {/* Temporary - just to see if tasks are being added */}
+       <TaskList
+       tasks={tasks}
+       onToggleComplete={handleToggleComplete}
+        onDeleteTask={handleDeleteTask}
+       />
         <div className="mt-8">
-          <p>Tasks added: {task.length}</p>
+          <p>Tasks added: {tasks.length}</p>
         </div>
       </div>
     </div>
